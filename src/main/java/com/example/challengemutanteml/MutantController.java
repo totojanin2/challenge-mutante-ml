@@ -25,6 +25,10 @@ public class MutantController {
     public ResponseEntity mutant(@RequestParam String[] dna, @RequestParam int cantLetrasMutante) throws Exception {
         boolean isMutant = Mutant.isMutant(dna, cantLetrasMutante);
 
+        DNA dnaInsert = new DNA(isMutant);
+
+        dnaRepository.save(dnaInsert);
+
         if (isMutant)
             return new ResponseEntity(HttpStatus.OK);
         else
