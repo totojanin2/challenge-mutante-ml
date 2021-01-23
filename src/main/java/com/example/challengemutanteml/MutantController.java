@@ -13,8 +13,8 @@ public class MutantController {
 
     @GetMapping("/mutant")
     @ResponseBody
-    public ResponseEntity mutant(@RequestParam(value = "dna") String[] adnList, @RequestParam(value = "cantLetrasMutante") int cantLetrasMutante) throws Exception {
-        boolean isMutant = Mutant.isMutant(adnList, cantLetrasMutante);
+    public ResponseEntity mutant(@RequestParam(value = "dna") String[] adnList) throws Exception {
+        boolean isMutant = Mutant.isMutant(adnList, 4);
 
         if (isMutant)
             return new ResponseEntity(HttpStatus.OK);
