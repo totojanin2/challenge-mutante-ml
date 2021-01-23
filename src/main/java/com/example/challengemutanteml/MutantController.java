@@ -29,24 +29,24 @@ public class MutantController {
 
     @GetMapping("/stats")
     @ResponseBody
-    public StatsADN stats() {
+    public Iterable<DNA> stats() {
         StatsADN stats = new StatsADN();
         int cantMutantes = 0;
         int cantHumanos = 0;
 
         Iterable<DNA> dnaList = dnaRepository.findAll();
 
-        for(DNA dna : dnaList) {
+        /*for(DNA dna : dnaList) {
             if (dna.isMutant())
                 cantMutantes++;
             else
                 cantHumanos++;
-        }
+        }*/
 
         stats.count_mutant_dna = cantMutantes;
         stats.count_human_dna = cantHumanos;
         stats.ratio = (double)stats.getCount_mutant_dna() / (double)stats.getCount_human_dna();
 
-        return stats;
+        return dnaList;
     }
 }
