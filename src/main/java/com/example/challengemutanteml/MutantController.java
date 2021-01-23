@@ -21,4 +21,16 @@ public class MutantController {
         else
             return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
+
+    @GetMapping("/stats")
+    @ResponseBody
+    public StatsADN stats(@RequestParam(value = "dna") String[] adnList) throws Exception {
+        StatsADN stats = new StatsADN();
+
+        stats.count_mutant_dna = 4;
+        stats.count_human_dna = 10;
+        stats.ratio = stats.getCount_mutant_dna() / stats.getCount_human_dna();
+
+        return stats;
+    }
 }
