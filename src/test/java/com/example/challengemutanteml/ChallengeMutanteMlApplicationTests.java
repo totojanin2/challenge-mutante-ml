@@ -1,11 +1,10 @@
 package com.example.challengemutanteml;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import static org.junit.Assert.*;
 
 @SpringBootTest
 class ChallengeMutanteMlApplicationTests {
@@ -22,7 +21,7 @@ class ChallengeMutanteMlApplicationTests {
 
 		ResponseEntity responseEntity = mutantController.mutant(adnList);
 
-		assertEquals(new ResponseEntity(HttpStatus.OK), responseEntity);
+		Assertions.assertEquals(new ResponseEntity(HttpStatus.OK), responseEntity);
 	}
 
 	@Test
@@ -38,7 +37,18 @@ class ChallengeMutanteMlApplicationTests {
 
 		ResponseEntity responseEntity = mutantController.mutant(adnList);
 
-		assertEquals(new ResponseEntity(HttpStatus.FORBIDDEN), responseEntity);
+		Assertions.assertEquals(new ResponseEntity(HttpStatus.FORBIDDEN), responseEntity);
+	}
+
+	@Test
+	void stats()  {
+		MutantController mutantController = new MutantController();
+
+		StatsADN stats = mutantController.stats();
+
+		Assertions.assertEquals(4, stats.getCount_mutant_dna());
+		Assertions.assertEquals(10, stats.getCount_human_dna());
+		Assertions.assertEquals(0.4, stats.getRatio());
 	}
 
 	@Test
@@ -52,7 +62,7 @@ class ChallengeMutanteMlApplicationTests {
 
 		boolean isMutant = Mutant.isMutant(adnList, 4);
 
-		assertTrue(isMutant);
+		Assertions.assertTrue(isMutant);
 	}
 
 	@Test
@@ -66,7 +76,7 @@ class ChallengeMutanteMlApplicationTests {
 
 		boolean isMutant = Mutant.isMutant(adnList, 4);
 
-		assertTrue(isMutant);
+		Assertions.assertTrue(isMutant);
 	}
 
 	@Test
@@ -80,7 +90,7 @@ class ChallengeMutanteMlApplicationTests {
 
 		boolean isMutant = Mutant.isMutant(adnList, 4);
 
-		assertTrue(isMutant);
+		Assertions.assertTrue(isMutant);
 	}
 
 	@Test
@@ -94,7 +104,7 @@ class ChallengeMutanteMlApplicationTests {
 
 		boolean isMutant = Mutant.isMutant(adnList, 4);
 
-		assertTrue(isMutant);
+		Assertions.assertTrue(isMutant);
 	}
 
 	@Test
@@ -105,7 +115,7 @@ class ChallengeMutanteMlApplicationTests {
 
 		boolean isMutant = Mutant.isMutant(adnList, 3);
 
-		assertTrue(isMutant);
+		Assertions.assertTrue(isMutant);
 	}
 
 	@Test
@@ -116,7 +126,7 @@ class ChallengeMutanteMlApplicationTests {
 
 		boolean isMutant = Mutant.isMutant(adnList, 3);
 
-		assertFalse(isMutant);
+		Assertions.assertFalse(isMutant);
 	}
 
 	@Test
@@ -129,7 +139,7 @@ class ChallengeMutanteMlApplicationTests {
 			Mutant.isMutant(adnList, 4);
 		}
 		catch (Exception ex) {
-			assertEquals(Mutant.ADNVacioException, ex.getMessage());
+			Assertions.assertEquals(Mutant.ADNVacioException, ex.getMessage());
 		}
 	}
 
@@ -143,7 +153,7 @@ class ChallengeMutanteMlApplicationTests {
 			Mutant.isMutant(adnList, 4);
 		}
 		catch (Exception ex) {
-			assertEquals(Mutant.LetrasNoAceptadasException, ex.getMessage());
+			Assertions.assertEquals(Mutant.LetrasNoAceptadasException, ex.getMessage());
 		}
 	}
 
@@ -157,7 +167,7 @@ class ChallengeMutanteMlApplicationTests {
 			Mutant.isMutant(adnList, 4);
 		}
 		catch (Exception ex) {
-			assertEquals(Mutant.MatrizNoCuadradaException, ex.getMessage());
+			Assertions.assertEquals(Mutant.MatrizNoCuadradaException, ex.getMessage());
 		}
 	}
 }
