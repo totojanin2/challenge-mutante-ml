@@ -1,6 +1,8 @@
 package com.example.challengemutanteml;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,6 +35,7 @@ public class DNA {
     }
 }
 
-interface DNARepository extends CrudRepository<DNA, Long> {
+@Repository
+interface DNARepository extends JpaRepository<DNA, Long> {
 
 }

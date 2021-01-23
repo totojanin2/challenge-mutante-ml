@@ -13,8 +13,9 @@ import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
+@RequestMapping("")
 public class MutantController {
-    private final DNARepository dnaRepository = null;
+    private DNARepository dnaRepository;
 
     @GetMapping("/mutant")
     @ResponseBody
@@ -31,17 +32,18 @@ public class MutantController {
     @ResponseBody
     public Iterable<DNA> stats() {
         StatsADN stats = new StatsADN();
+
         int cantMutantes = 0;
         int cantHumanos = 0;
 
         Iterable<DNA> dnaList = dnaRepository.findAll();
 
-        /*for(DNA dna : dnaList) {
+        for(DNA dna : dnaList) {
             if (dna.isMutant())
                 cantMutantes++;
             else
                 cantHumanos++;
-        }*/
+        }
 
         stats.count_mutant_dna = cantMutantes;
         stats.count_human_dna = cantHumanos;
