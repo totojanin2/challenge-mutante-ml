@@ -33,9 +33,9 @@ public class MutantController {
         int cantMutantes = 0;
         int cantHumanos = 0;
 
-        /*Iterable<DNA> dnaList = dnaRepository.findAll();
+        Iterable<DNA> dnaList = dnaRepository.findAll();
 
-        for (DNA dna : dnaList) {
+        /*for (DNA dna : dnaList) {
             if (dna.isMutant())
                 cantMutantes++;
             else
