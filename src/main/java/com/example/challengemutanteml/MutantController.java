@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
@@ -30,13 +31,13 @@ public class MutantController {
 
     @GetMapping("/stats")
     @ResponseBody
-    public Iterable<DNA> stats() {
+    public List<DNA> stats() {
         StatsADN stats = new StatsADN();
 
         int cantMutantes = 0;
         int cantHumanos = 0;
 
-        Iterable<DNA> dnaList = dnaRepository.findAll();
+        List<DNA> dnaList = dnaRepository.findAll();
 
         for(DNA dna : dnaList) {
             if (dna.isMutant())
