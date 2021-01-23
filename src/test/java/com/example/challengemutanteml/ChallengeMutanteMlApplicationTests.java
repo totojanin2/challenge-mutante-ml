@@ -19,7 +19,7 @@ class ChallengeMutanteMlApplicationTests {
 							"CCCCTA",
 							"TCACTG"};
 
-		ResponseEntity responseEntity = mutantController.mutant(adnList);
+		ResponseEntity responseEntity = mutantController.mutant(adnList, 4);
 
 		Assertions.assertEquals(new ResponseEntity(HttpStatus.OK), responseEntity);
 	}
@@ -35,7 +35,7 @@ class ChallengeMutanteMlApplicationTests {
 							"CCTCTA",
 							"TCACTG"};
 
-		ResponseEntity responseEntity = mutantController.mutant(adnList);
+		ResponseEntity responseEntity = mutantController.mutant(adnList, 4);
 
 		Assertions.assertEquals(new ResponseEntity(HttpStatus.FORBIDDEN), responseEntity);
 	}
