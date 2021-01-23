@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
@@ -35,12 +36,12 @@ public class MutantController {
 
         Iterable<DNA> dnaList = dnaRepository.findAll();
 
-        /*for (DNA dna : dnaList) {
+        for(DNA dna : dnaList) {
             if (dna.isMutant())
                 cantMutantes++;
             else
                 cantHumanos++;
-        }*/
+        }
 
         stats.count_mutant_dna = cantMutantes;
         stats.count_human_dna = cantHumanos;
