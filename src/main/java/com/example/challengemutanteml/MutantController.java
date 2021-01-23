@@ -1,5 +1,6 @@
 package com.example.challengemutanteml;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @RestController
 @RequestMapping("")
 public class MutantController {
+    @Autowired
     private DNARepository dnaRepository;
 
     @GetMapping("/mutant")
