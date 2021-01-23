@@ -29,7 +29,7 @@ public class MutantController {
 
         stats.count_mutant_dna = 4;
         stats.count_human_dna = 10;
-        stats.ratio = stats.getCount_mutant_dna() / stats.getCount_human_dna();
+        stats.ratio = (double)stats.getCount_mutant_dna() / (double)stats.getCount_human_dna();
 
         return stats;
     }
