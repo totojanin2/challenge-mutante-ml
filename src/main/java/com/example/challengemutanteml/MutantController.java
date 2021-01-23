@@ -1,15 +1,19 @@
 package com.example.challengemutanteml;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class MutantController {
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
+    private final DNARepository dnaRepository = null;
 
     @GetMapping("/mutant")
     @ResponseBody
@@ -26,6 +30,8 @@ public class MutantController {
     @ResponseBody
     public StatsADN stats() {
         StatsADN stats = new StatsADN();
+
+        Iterable<DNA> dnaList = dnaRepository.findAll();
 
         stats.count_mutant_dna = 4;
         stats.count_human_dna = 10;
