@@ -33,7 +33,7 @@ public class MutantController {
 
     @GetMapping("/stats")
     @ResponseBody
-    public List<DNA> stats() {
+    public StatsADN stats() {
         StatsADN stats = new StatsADN();
 
         int cantMutantes = 0;
@@ -52,6 +52,6 @@ public class MutantController {
         stats.count_human_dna = cantHumanos;
         stats.ratio = (double)stats.getCount_mutant_dna() / (double)stats.getCount_human_dna();
 
-        return dnaList;
+        return stats;
     }
 }
