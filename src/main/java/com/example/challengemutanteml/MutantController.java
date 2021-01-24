@@ -20,7 +20,7 @@ public class MutantController {
     @Autowired
     private DNARepository dnaRepository;
 
-    @PostMapping("/mutant")
+    @RequestMapping(name = "/mutant", method = RequestMethod.POST)
     public ResponseEntity mutant(@RequestParam String[] dna, @RequestParam int cantLetrasMutante) throws Exception {
         boolean isMutant = Mutant.isMutant(dna, cantLetrasMutante);
 
