@@ -1,8 +1,11 @@
 package com.example.challengemutanteml;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Collections;
 import java.util.Objects;
 
+@Component
 public class Mutant {
     public final static String ADNVacioException = "El ADN no puede ser vacío";
     public final static String LetrasNoAceptadasException = "Las letras aceptadas son A, T, C y G";

@@ -15,31 +15,31 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
-@RequestMapping("")
 public class MutantController {
     @Autowired
     private DNARepository dnaRepository;
 
     @PostMapping("/mutant")
-    public boolean mutant(@RequestParam String[] dna, @RequestParam int cantLetrasMutante) throws Exception {
+    public ResponseEntity mutant(@RequestParam String[] dna, @RequestParam int cantLetrasMutante) throws Exception {
         boolean isMutant = Mutant.isMutant(dna, cantLetrasMutante);
 
         DNA dnaInsert = new DNA(isMutant, ConvertArrayToString(dna));
 
         boolean exists = dnaRepository.existsDNABySecuenciaADN(dnaInsert.getSecuenciaADN());
 
-        //dnaRepository.save(dnaInsert);
-        return exists;
-        /*if (isMutant)
+        if (!exists)
+            dnaRepository.save(dnaInsert);
+
+        if (isMutant)
             return new ResponseEntity(HttpStatus.OK);
         else
-            return new ResponseEntity(HttpStatus.FORBIDDEN);*/
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
 
     @GetMapping("/stats")
     @ResponseBody
-    public StatsADN stats() {
-        StatsADN stats = new StatsADN();
+    public StatsDNA stats() {
+        StatsDNA stats = new StatsDNA();
 
         List<DNA> dnaList = dnaRepository.findAll();
 
@@ -48,7 +48,11 @@ public class MutantController {
 
         stats.count_mutant_dna = (int)cantMutantes;
         stats.count_human_dna = (int)cantHumanos;
-        stats.ratio = (double)stats.getCount_mutant_dna() / (double)stats.getCount_human_dna();
+
+        if (stats.getCount_human_dna() != 0)
+            stats.ratio = (double)stats.getCount_mutant_dna() / (double)stats.getCount_human_dna();
+        else
+            stats.ratio = 0;
 
         return stats;
     }

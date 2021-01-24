@@ -1,6 +1,9 @@
 package com.example.challengemutanteml;
 
-public class StatsADN {
+import org.springframework.stereotype.Component;
+
+@Component
+public class StatsDNA {
     public int count_mutant_dna;
     public int count_human_dna;
     public double ratio;

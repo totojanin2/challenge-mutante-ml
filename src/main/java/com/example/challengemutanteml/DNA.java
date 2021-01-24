@@ -1,16 +1,12 @@
 package com.example.challengemutanteml;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table
 public class DNA {
     public DNA() {
 
@@ -23,6 +19,7 @@ public class DNA {
 
     @Id
     @GeneratedValue
+    @Column
     private Long id;
 
     @Column

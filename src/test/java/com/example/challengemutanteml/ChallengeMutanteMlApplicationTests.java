@@ -2,6 +2,7 @@ package com.example.challengemutanteml;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,10 +11,11 @@ import java.util.Arrays;
 
 @SpringBootTest
 class ChallengeMutanteMlApplicationTests {
-	/*@Test
-	void ResponseOK() throws Exception {
-		MutantController mutantController = new MutantController();
+	@Autowired
+	private MutantController mutantController;
 
+	@Test
+	void ResponseOK() throws Exception {
 		String[] adnList = {"AAAACT",
 							"TTCTGA",
 							"TTATGT",
@@ -24,12 +26,10 @@ class ChallengeMutanteMlApplicationTests {
 		ResponseEntity responseEntity = mutantController.mutant(adnList, 4);
 
 		Assertions.assertEquals(new ResponseEntity(HttpStatus.OK), responseEntity);
-	}*/
+	}
 
-	/*@Test
+	@Test
 	void ResponseForbidden() throws Exception {
-		MutantController mutantController = new MutantController();
-
 		String[] adnList = {"AAGACT",
 							"TTCTGA",
 							"TTATGT",
@@ -40,18 +40,16 @@ class ChallengeMutanteMlApplicationTests {
 		ResponseEntity responseEntity = mutantController.mutant(adnList, 4);
 
 		Assertions.assertEquals(new ResponseEntity(HttpStatus.FORBIDDEN), responseEntity);
-	}*/
+	}
 
-	/*@Test
+	@Test
 	void stats()  {
-		MutantController mutantController = new MutantController();
+		StatsDNA stats = mutantController.stats();
 
-		StatsADN stats = mutantController.stats();
-
-		Assertions.assertEquals(4, stats.getCount_mutant_dna());
-		Assertions.assertEquals(10, stats.getCount_human_dna());
-		Assertions.assertEquals(0.4, stats.getRatio());
-	}*/
+		Assertions.assertFalse(stats.getCount_mutant_dna() == 0);
+		Assertions.assertFalse(stats.getCount_human_dna() == 0);
+		Assertions.assertFalse(stats.getRatio() == 0);
+	}
 
 	@Test
 	public void MutanteSecuenciasHorizontales() throws Exception {
