@@ -24,7 +24,7 @@ public class MutantController {
     public boolean mutant(@RequestParam String[] dna, @RequestParam int cantLetrasMutante) throws Exception {
         boolean isMutant = Mutant.isMutant(dna, cantLetrasMutante);
 
-        DNA dnaInsert = new DNA(isMutant, String.join(",", dna));
+        DNA dnaInsert = new DNA(isMutant, ConvertArrayToString(dna));
 
         boolean exists = dnaRepository.existsDNABySecuenciaADN(dnaInsert.getSecuenciaADN());
 
@@ -41,22 +41,25 @@ public class MutantController {
     public StatsADN stats() {
         StatsADN stats = new StatsADN();
 
-        int cantMutantes = 0;
-        int cantHumanos = 0;
-
         List<DNA> dnaList = dnaRepository.findAll();
 
-        for(DNA dna : dnaList) {
-            if (dna.isMutant())
-                cantMutantes++;
-            else
-                cantHumanos++;
-        }
+        long cantMutantes = dnaList.stream().filter(dna -> dna.isMutant()).count();
+        long cantHumanos = dnaList.stream().filter(dna -> !dna.isMutant()).count();
 
-        stats.count_mutant_dna = cantMutantes;
-        stats.count_human_dna = cantHumanos;
+        stats.count_mutant_dna = (int)cantMutantes;
+        stats.count_human_dna = (int)cantHumanos;
         stats.ratio = (double)stats.getCount_mutant_dna() / (double)stats.getCount_human_dna();
 
         return stats;
+    }
+
+    private String ConvertArrayToString(String[] array) {
+        StringBuilder builder = new StringBuilder();
+
+        for(String s : array) {
+            builder.append(s);
+        }
+
+        return builder.toString();
     }
 }
