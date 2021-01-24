@@ -24,11 +24,11 @@ public class MutantController {
     public boolean mutant(@RequestParam String[] dna, @RequestParam int cantLetrasMutante) throws Exception {
         boolean isMutant = Mutant.isMutant(dna, cantLetrasMutante);
 
-        DNA dnaInsert = new DNA(isMutant);
+        DNA dnaInsert = new DNA(isMutant, String.join(",", dna));
 
         boolean exists = dnaRepository.existsByDNA(dna);
 
-        dnaRepository.save(dnaInsert);
+        //dnaRepository.save(dnaInsert);
         return exists;
         /*if (isMutant)
             return new ResponseEntity(HttpStatus.OK);

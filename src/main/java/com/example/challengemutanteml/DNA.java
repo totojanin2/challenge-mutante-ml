@@ -16,8 +16,9 @@ public class DNA {
 
     }
 
-    public DNA(boolean isMutant) {
+    public DNA(boolean isMutant, String dna) {
         this.isMutant = isMutant;
+        this.dna = dna;
     }
 
     @Id
@@ -25,7 +26,7 @@ public class DNA {
     private Long id;
 
     @Column
-    private String DNA;
+    private String dna;
 
     @Column
     private boolean isMutant;
@@ -35,7 +36,7 @@ public class DNA {
     }
 
     public String getDNA() {
-        return DNA;
+        return dna;
     }
 
     public boolean isMutant() {
