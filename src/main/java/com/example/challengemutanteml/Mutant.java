@@ -16,7 +16,7 @@ public class Mutant {
     private static void validarADN(String[] adnList) throws Exception {
         for (String adn : adnList) {
             if (Objects.isNull(adn) || adn.equals("")) {
-                throw new Exception("");
+                throw new Exception(ADNVacioException);
             }
 
             if (!adn.matches("[ATCG]+")) {
