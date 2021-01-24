@@ -20,10 +20,10 @@ public class MutantController {
     private DNARepository dnaRepository;
 
     @PostMapping("/mutant")
-    public ResponseEntity mutant(@RequestBody String[] dna, @RequestBody int cantLetrasMutante) throws Exception {
-        boolean isMutant = Mutant.isMutant(dna, cantLetrasMutante);
+    public ResponseEntity mutant(@RequestBody DNARequest dnaRequest) throws Exception {
+        boolean isMutant = Mutant.isMutant(dnaRequest.getDna(), dnaRequest.getCantLetrasMutante());
 
-        DNA dnaInsert = new DNA(isMutant, ConvertArrayToString(dna));
+        DNA dnaInsert = new DNA(isMutant, ConvertArrayToString(dnaRequest.getDna()));
 
         boolean exists = dnaRepository.existsDNABySecuenciaADN(dnaInsert.getSecuenciaADN());
 
