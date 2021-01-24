@@ -21,17 +21,19 @@ public class MutantController {
     private DNARepository dnaRepository;
 
     @PostMapping("/mutant")
-    public ResponseEntity mutant(@RequestParam String[] dna, @RequestParam int cantLetrasMutante) throws Exception {
+    public boolean mutant(@RequestParam String[] dna, @RequestParam int cantLetrasMutante) throws Exception {
         boolean isMutant = Mutant.isMutant(dna, cantLetrasMutante);
 
         DNA dnaInsert = new DNA(isMutant);
 
-        dnaRepository.save(dnaInsert);
+        boolean exists = dnaRepository.existsByDNA(dna);
 
-        if (isMutant)
+        dnaRepository.save(dnaInsert);
+        return exists;
+        /*if (isMutant)
             return new ResponseEntity(HttpStatus.OK);
         else
-            return new ResponseEntity(HttpStatus.FORBIDDEN);
+            return new ResponseEntity(HttpStatus.FORBIDDEN);*/
     }
 
     @GetMapping("/stats")

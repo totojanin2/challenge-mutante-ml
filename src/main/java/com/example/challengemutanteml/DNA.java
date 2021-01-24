@@ -1,6 +1,7 @@
 package com.example.challengemutanteml;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -24,10 +25,17 @@ public class DNA {
     private Long id;
 
     @Column
+    private String DNA;
+
+    @Column
     private boolean isMutant;
 
     public Long getId() {
         return id;
+    }
+
+    public String getDNA() {
+        return DNA;
     }
 
     public boolean isMutant() {
@@ -37,5 +45,5 @@ public class DNA {
 
 @Repository
 interface DNARepository extends JpaRepository<DNA, Long> {
-
+    boolean existsByDNA(String[] DNA);
 }
