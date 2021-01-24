@@ -26,7 +26,7 @@ public class MutantController {
 
         DNA dnaInsert = new DNA(isMutant, String.join(",", dna));
 
-        boolean exists = dnaRepository.existsByDNA(dna);
+        boolean exists = dnaRepository.existsByDNA(dnaInsert.getDNA());
 
         //dnaRepository.save(dnaInsert);
         return exists;

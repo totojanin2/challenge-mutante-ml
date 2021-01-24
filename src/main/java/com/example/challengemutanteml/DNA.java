@@ -46,5 +46,5 @@ public class DNA {
 
 @Repository
 interface DNARepository extends JpaRepository<DNA, Long> {
-    boolean existsByDNA(String[] DNA);
+    boolean existsByDNA(String DNA);
 }
