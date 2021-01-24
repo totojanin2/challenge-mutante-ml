@@ -23,7 +23,7 @@ class ChallengeMutanteMlApplicationTests {
 							"CCCCTA",
 							"TCACTG"};
 
-		ResponseEntity responseEntity = mutantController.mutant(new DNARequest(adnList, 4));
+		ResponseEntity responseEntity = mutantController.mutant(new DNARequest(adnList, 3));
 
 		Assertions.assertEquals(new ResponseEntity(HttpStatus.OK), responseEntity);
 	}
