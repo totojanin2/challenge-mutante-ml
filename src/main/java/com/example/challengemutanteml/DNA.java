@@ -18,7 +18,7 @@ public class DNA {
 
     public DNA(boolean isMutant, String dna) {
         this.isMutant = isMutant;
-        this.dna = dna;
+        this.secuenciaADN = dna;
     }
 
     @Id
@@ -26,7 +26,7 @@ public class DNA {
     private Long id;
 
     @Column
-    private String dna;
+    private String secuenciaADN;
 
     @Column
     private boolean isMutant;
@@ -35,8 +35,8 @@ public class DNA {
         return id;
     }
 
-    public String getDNA() {
-        return dna;
+    public String getSecuenciaADN() {
+        return secuenciaADN;
     }
 
     public boolean isMutant() {
@@ -46,5 +46,5 @@ public class DNA {
 
 @Repository
 interface DNARepository extends JpaRepository<DNA, Long> {
-    boolean existsByDNA(String DNA);
+    boolean existsDNABySecuenciaADN(String secuenciaADN);
 }
