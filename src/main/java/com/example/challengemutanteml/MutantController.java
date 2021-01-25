@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -13,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
@@ -20,8 +22,9 @@ public class MutantController {
     @Autowired
     private DNARepository dnaRepository;
 
+    @Async
     @PostMapping("/mutant")
-    public ResponseEntity mutant(@RequestBody DNARequest dnaRequest) throws Exception {
+    public CompletableFuture<ResponseEntity> mutant(@RequestBody DNARequest dnaRequest) throws Exception {
         try {
             boolean isMutant = Mutant.isMutant(dnaRequest.getDna(), dnaRequest.getCantLetrasMutante());
 
@@ -33,9 +36,9 @@ public class MutantController {
                 dnaRepository.save(dnaInsert);
 
             if (isMutant)
-                return new ResponseEntity(HttpStatus.OK);
+                return CompletableFuture.completedFuture(new ResponseEntity(HttpStatus.OK));
             else
-                return new ResponseEntity(HttpStatus.FORBIDDEN);
+                return CompletableFuture.completedFuture(new ResponseEntity(HttpStatus.FORBIDDEN));
         }
         catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());

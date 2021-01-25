@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.Arrays;
+import java.util.concurrent.CompletableFuture;
 
 @SpringBootTest
 class ChallengeMutanteMlApplicationTests {
@@ -23,7 +25,7 @@ class ChallengeMutanteMlApplicationTests {
 							"CCCCTA",
 							"TCACTG"};
 
-		ResponseEntity responseEntity = mutantController.mutant(new DNARequest(adnList, 4));
+		CompletableFuture<ResponseEntity> responseEntity = mutantController.mutant(new DNARequest(adnList, 4));
 
 		Assertions.assertEquals(new ResponseEntity(HttpStatus.OK), responseEntity);
 	}
@@ -37,7 +39,7 @@ class ChallengeMutanteMlApplicationTests {
 							"CCTCTA",
 							"TCACTG"};
 
-		ResponseEntity responseEntity = mutantController.mutant(new DNARequest(adnList, 4));
+		CompletableFuture<ResponseEntity> responseEntity = mutantController.mutant(new DNARequest(adnList, 4));
 
 		Assertions.assertEquals(new ResponseEntity(HttpStatus.FORBIDDEN), responseEntity);
 	}
