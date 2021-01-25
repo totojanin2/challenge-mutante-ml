@@ -6,7 +6,7 @@ Para poder probar la API, utilizando el software Postman o algún otro software 
 
 Para usar el servicio "mutant", usar la URL https://challenge-mutante-ml.herokuapp.com/mutant (por POST) y como parámetro pasar un JSON con el formato:
 {
-    "dna": ["ATGCGA","CAGTGC","TTATGT","AGACGG","GACCTA","TCACTG"],
+    "dna": ["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"],
     "cantLetrasMutante": 4
 }
 
