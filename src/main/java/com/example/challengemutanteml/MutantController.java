@@ -16,11 +16,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @RestController
 public class MutantController {
     @Autowired
     private DNARepository dnaRepository;
+
+    private final Lock lock = new ReentrantLock(true);
 
     @Async
     @PostMapping("/mutant")
@@ -31,6 +35,9 @@ public class MutantController {
             DNA dnaInsert = new DNA(isMutant, ConvertArrayToString(dnaRequest.getDna()));
 
             boolean exists = dnaRepository.existsDNABySecuenciaADN(dnaInsert.getSecuenciaADN());
+
+            // Bloqueo el thread para evitar problemas de concurrencia al insertar en la BD
+            lock.lock();
 
             if (!exists)
                 dnaRepository.save(dnaInsert);
@@ -43,6 +50,9 @@ public class MutantController {
         catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
         }
+        finally {
+            lock.unlock();
+        }
     }
 
     @GetMapping("/stats")
@@ -50,10 +60,8 @@ public class MutantController {
     public StatsDNA stats() {
         StatsDNA stats = new StatsDNA();
 
-        List<DNA> dnaList = dnaRepository.findAll();
-
-        long cantMutantes = dnaList.stream().filter(dna -> dna.isMutant()).count();
-        long cantHumanos = dnaList.stream().filter(dna -> !dna.isMutant()).count();
+        long cantMutantes = dnaRepository.countDNAByIsMutant(true);
+        long cantHumanos = dnaRepository.countDNAByIsMutant(false);
 
         stats.count_mutant_dna = (int)cantMutantes;
         stats.count_human_dna = (int)cantHumanos;
