@@ -27,7 +27,7 @@ class ChallengeMutanteMlApplicationTests {
 
 		CompletableFuture<ResponseEntity> responseEntity = mutantController.mutant(new DNARequest(adnList, 4));
 
-		Assertions.assertEquals(new ResponseEntity(HttpStatus.OK), responseEntity);
+		Assertions.assertEquals(new ResponseEntity(HttpStatus.OK), responseEntity.get());
 	}
 
 	@Test
@@ -41,7 +41,7 @@ class ChallengeMutanteMlApplicationTests {
 
 		CompletableFuture<ResponseEntity> responseEntity = mutantController.mutant(new DNARequest(adnList, 4));
 
-		Assertions.assertEquals(new ResponseEntity(HttpStatus.FORBIDDEN), responseEntity);
+		Assertions.assertEquals(new ResponseEntity(HttpStatus.FORBIDDEN), responseEntity.get());
 	}
 
 	@Test
