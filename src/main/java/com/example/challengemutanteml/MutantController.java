@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,19 +22,24 @@ public class MutantController {
 
     @PostMapping("/mutant")
     public ResponseEntity mutant(@RequestBody DNARequest dnaRequest) throws Exception {
-        boolean isMutant = Mutant.isMutant(dnaRequest.getDna(), dnaRequest.getCantLetrasMutante());
+        try {
+            boolean isMutant = Mutant.isMutant(dnaRequest.getDna(), dnaRequest.getCantLetrasMutante());
 
-        DNA dnaInsert = new DNA(isMutant, ConvertArrayToString(dnaRequest.getDna()));
+            DNA dnaInsert = new DNA(isMutant, ConvertArrayToString(dnaRequest.getDna()));
 
-        boolean exists = dnaRepository.existsDNABySecuenciaADN(dnaInsert.getSecuenciaADN());
+            boolean exists = dnaRepository.existsDNABySecuenciaADN(dnaInsert.getSecuenciaADN());
 
-        if (!exists)
-            dnaRepository.save(dnaInsert);
+            if (!exists)
+                dnaRepository.save(dnaInsert);
 
-        if (isMutant)
-            return new ResponseEntity(HttpStatus.OK);
-        else
-            return new ResponseEntity(HttpStatus.FORBIDDEN);
+            if (isMutant)
+                return new ResponseEntity(HttpStatus.OK);
+            else
+                return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+        catch (Exception exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
+        }
     }
 
     @GetMapping("/stats")
